@@ -2,7 +2,9 @@
   height: 100vh;
   width: 100vw;
   background: rgb(10, 17, 61);
-  background: linear-gradient(90deg, rgba(10, 17, 61, 1) 29%, rgba(27, 64, 175, 1) 100%);
+
+  position: relative;
+  overflow: hidden;
 }
 
 

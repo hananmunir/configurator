@@ -4,7 +4,13 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 import { Canvas } from "@react-three/fiber";
 import { Model as Felni } from "./Components/Models/Felni.jsx";
-import { Environment, Loader, OrbitControls } from "@react-three/drei";
+import {
+  Environment,
+  Loader,
+  OrbitControls,
+  PresentationControls,
+} from "@react-three/drei";
+import Container from "./Components/UI/Container";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -12,15 +18,17 @@ function App() {
   return (
     <>
       <div className='canvasContainer'>
-        <Canvas>
+        <Canvas style={{ zIndex: 1 }}>
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           <Suspense fallback={null}>
-            <Felni />
+            <PresentationControls>
+              <Felni />
+            </PresentationControls>
           </Suspense>
-          <Environment preset='city' />
-          <OrbitControls />
+          <Environment files={"/Environment/venice_sunset_1k.hdr"} />
         </Canvas>
+        <Container />
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import { useGLTF } from "@react-three/drei";
 export function Model(props) {
   const { nodes, materials } = useGLTF("/Models/rim-transformed.glb");
   return (
-    <group scale={0.006} {...props} dispose={null}>
+    <group scale={0.008} {...props} dispose={null}>
       <mesh
         geometry={nodes.Body1.geometry}
         material={nodes.Body1.material}
