@@ -1,0 +1,73 @@
+.slick-slide{
+    border: 2px solid transparent !important;
+    width: 20px !important;
+    height: 20px !important;
+    border-radius: 50%;
+    margin-right: 20px;
+    color: white;
+}
+
+.slick-slide:hover{
+    cursor: pointer;
+}
+
+.slick-slide.selected{
+    border-color: white !important;
+}
+
+.slider-color{
+    color: #fff;
+    margin-bottom: 8px;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+  }
+
+
+.red{
+    background-color: red !important;
+}
+
+.blue{
+    background-color: blue !important;
+}
+
+.green{
+    background-color: green !important;
+}
+
+.yellow{
+    background-color: yellow !important;
+}
+
+.orange{
+    background-color: orange !important;
+}
+
+.purple{
+    background-color: purple !important;
+}
+
+.black{
+    background-color: black !important;
+}
+
+.white{
+    background-color: white !important;
+}
+
+.brown{
+    background-color: brown !important;
+}
+
+.gray{
+    background-color: gray !important;
+}
+
+.pink{
+    background-color: pink !important;
+}
+
+.cyan{
+    background-color: cyan !important;
+}
