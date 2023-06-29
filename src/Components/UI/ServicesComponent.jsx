@@ -12,7 +12,7 @@ function ServicesComponent() {
         borderRadius: "30px",
         color: "white",
         fontSize: "14px",
-        transform: "translateX(50px)",
+        transform: "translateX(45px)",
     }}>ServicesComponent</div>
   )
 }
