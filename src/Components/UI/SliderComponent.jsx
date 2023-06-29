@@ -3,26 +3,20 @@ import "./SliderComponent.css";
 import useColorStore from "../../Utils/store";
 
 const SliderComponent = () => {
-  const colors = [
-    "red",
-    "blue",
-    "green",
-    "yellow",
-    "purple",
-    "orange",
-    "pink",
-    "brown",
-    "black",
-    "white",
+  const Materials = [
+    "Alloy",
+    "Aluminum",
+    "Brass",
+    "Bronze",
+    "Copper",
   ];
+
   const [currentPage, setCurrentPage] = useState(0);
-  const [selectedColor, setSelectedColor] = useState(null); // State to store the selected color
-  const colorsPerPage = 5;
-  const changeColor = useColorStore((state) => state.changeColor);
+  const materialsPerPage = 1;
 
-  const totalPages = Math.ceil(colors.length / colorsPerPage);
+  const totalPages = Math.ceil(Materials.length / materialsPerPage);
 
-  const handlePrevious = () => {
+  const handlePrev = () => {
     setCurrentPage((prevPage) =>
       prevPage === 0 ? totalPages - 1 : prevPage - 1
     );
@@ -34,37 +28,34 @@ const SliderComponent = () => {
     );
   };
 
-  const handleColorClick = (color) => {
-    changeColor(color);
-  };
-
-  const startIndex = currentPage * colorsPerPage;
-  const displayedColors = colors.slice(startIndex, startIndex + colorsPerPage);
+  const startIndex = currentPage * materialsPerPage;
+  const displayedMaterials = Materials.slice(
+    startIndex,
+    startIndex + materialsPerPage
+  );
 
   return (
     <div className='slider-container'>
       <div className='slider-color'>Main Color</div>
       <div className='slider'>
-        <button onClick={handlePrevious} className='arrow-button'>
+        <button onClick={handlePrev} className='arrow-button' style={{
+          transform: "translateX(-20px)",
+        }}>
           &lt;
         </button>
         <div className='color-container'>
-          {displayedColors.map((color, index) => (
-            <div
-              key={index}
-              className={`color-circle ${
-                selectedColor === color ? "selected" : ""
-              }`}
-              style={{ backgroundColor: color }}
-              onClick={() => handleColorClick(color)}
-            ></div>
+          {displayedMaterials.map((mat, index) => (
+            <div key={index} className='material'>
+              {mat}
+            </div>
           ))}
         </div>
-        <button onClick={handleNext} className='arrow-button'>
+        <button onClick={handleNext} className='arrow-button' style={{
+          transform: "translateX(20px)",
+        }}>
           &gt;
         </button>
       </div>
-      {selectedColor && <div className='selected-color'>{selectedColor}</div>}
     </div>
   );
 };

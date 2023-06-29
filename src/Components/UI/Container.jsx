@@ -2,6 +2,7 @@ import React from "react";
 import "./index.css";
 import SliderComponent from "./SliderComponent";
 import SliderSlick from "./SliderSlick";
+import ServicesComponent from "./ServicesComponent";
 
 export default function Container() {
   return (
@@ -13,7 +14,16 @@ export default function Container() {
           <SliderSlick type='surface' />
           <SliderSlick type='topcoat' />
         </div>
-        <div className='container__body__right'></div>
+        <div className='container__body__right'>
+          <SliderComponent/>
+          <SliderComponent/>
+          <SliderComponent/>
+          <SliderComponent/>
+          <ServicesComponent/>
+          <ServicesComponent/>
+          <ServicesComponent/>
+          <ServicesComponent/>
+        </div>
       </div>
       <div className='container__footer'></div>
     </div>
