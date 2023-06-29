@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  
+  font-family: 'Poppins', sans-serif;
+
 }
 
 body {
@@ -11,5 +13,90 @@ body {
   min-height: 100vh;
 }
 
+.red {
+  background-color: red !important;
+}
 
+.orange {
+  background-color: orange !important;
+}
 
+.yellow {
+  background-color: yellow !important;
+}
+
+.green {
+  background-color: green !important;
+}
+
+.blue {
+  background-color: blue !important;
+}
+
+.indigo {
+  background-color: indigo !important;
+}
+
+.violet {
+  background-color: violet !important;
+}
+
+.pink {
+  background-color: pink !important;
+}
+
+.purple {
+  background-color: purple !important;
+}
+
+.brown {
+  background-color: brown !important;
+}
+
+.gray {
+  background-color: gray !important;
+}
+
+.black {
+  background-color: black !important;
+  color: white !important;
+}
+
+.white {
+  background-color: white !important;
+}
+
+.cyan {
+  background-color: cyan !important;
+}
+
+.magenta {
+  background-color: magenta !important;
+}
+
+.teal {
+  background-color: teal !important;
+}
+
+.lime {
+  background-color: lime !important;
+}
+
+.olive {
+  background-color: olive !important;
+}
+
+.navy {
+  background-color: navy !important;
+  color: white !important;
+}
+
+.maroon {
+  background-color: maroon !important;
+  color: white !important;
+}
+
+.lightgray {
+  background-color: lightgray !important;
+
+}

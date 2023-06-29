@@ -9,7 +9,9 @@ export default function Container() {
       <div className='container__header'></div>
       <div className='container__body'>
         <div className='container__body__left'>
-          <SliderSlick />
+          <SliderSlick type='color' />
+          <SliderSlick type='surface' />
+          <SliderSlick type='topcoat' />
         </div>
         <div className='container__body__right'></div>
       </div>
