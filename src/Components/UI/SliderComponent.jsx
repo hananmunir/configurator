@@ -1,11 +1,24 @@
-import React, { useState } from 'react';
-import './SliderComponent.css';
+import React, { useState } from "react";
+import "./SliderComponent.css";
+import useColorStore from "../../Utils/store";
 
 const SliderComponent = () => {
-  const colors = ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'pink', 'brown', 'black', 'white'];
+  const colors = [
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "purple",
+    "orange",
+    "pink",
+    "brown",
+    "black",
+    "white",
+  ];
   const [currentPage, setCurrentPage] = useState(0);
   const [selectedColor, setSelectedColor] = useState(null); // State to store the selected color
   const colorsPerPage = 5;
+  const changeColor = useColorStore((state) => state.changeColor);
 
   const totalPages = Math.ceil(colors.length / colorsPerPage);
 
@@ -22,7 +35,7 @@ const SliderComponent = () => {
   };
 
   const handleColorClick = (color) => {
-    setSelectedColor(color);
+    changeColor(color);
   };
 
   const startIndex = currentPage * colorsPerPage;
@@ -30,22 +43,28 @@ const SliderComponent = () => {
 
   return (
     <div className='slider-container'>
-        <div className='slider-color'>Main Color</div>
-    <div className="slider">
-      <button onClick={handlePrevious} className="arrow-button">&lt;</button>
-      <div className="color-container">
-        {displayedColors.map((color, index) => (
-          <div
-            key={index}
-            className={`color-circle ${selectedColor === color ? 'selected' : ''}`}
-            style={{ backgroundColor: color }}
-            onClick={() => handleColorClick(color)}
-          ></div>
-        ))}
+      <div className='slider-color'>Main Color</div>
+      <div className='slider'>
+        <button onClick={handlePrevious} className='arrow-button'>
+          &lt;
+        </button>
+        <div className='color-container'>
+          {displayedColors.map((color, index) => (
+            <div
+              key={index}
+              className={`color-circle ${
+                selectedColor === color ? "selected" : ""
+              }`}
+              style={{ backgroundColor: color }}
+              onClick={() => handleColorClick(color)}
+            ></div>
+          ))}
+        </div>
+        <button onClick={handleNext} className='arrow-button'>
+          &gt;
+        </button>
       </div>
-      <button onClick={handleNext} className="arrow-button">&gt;</button>
-    </div>
-    {selectedColor && <div className="selected-color">{selectedColor}</div>}
+      {selectedColor && <div className='selected-color'>{selectedColor}</div>}
     </div>
   );
 };

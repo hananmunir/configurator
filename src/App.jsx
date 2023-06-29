@@ -18,7 +18,7 @@ function App() {
   return (
     <>
       <div className='canvasContainer'>
-        <Canvas style={{ zIndex: 1 }}>
+        <Canvas style={{ zIndex: 1 }}>k
           <ambientLight />
           <pointLight position={[10, 10, 10]} />
           <Suspense fallback={null}>
