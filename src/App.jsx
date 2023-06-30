@@ -16,12 +16,6 @@ import { useControls } from "leva";
 
 function App() {
   const [count, setCount] = useState(0);
-  const { position } = useControls({
-    position: {
-      value: [0, 0, 0],
-      step: 0.1,
-    },
-  });
 
   return (
     <>
