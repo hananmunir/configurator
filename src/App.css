@@ -1,7 +1,7 @@
 .canvasContainer {
   height: 100vh;
   width: 100vw;
-  background: rgb(10, 17, 61);
+  background: #0a113d;
 
   position: relative;
   overflow: hidden;

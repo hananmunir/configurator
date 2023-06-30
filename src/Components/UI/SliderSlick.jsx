@@ -19,7 +19,7 @@ function SliderSlick({ type }) {
     <div style={{ width: "60%", margin: "auto" }}>
       <span className='slider-color-title'>
         {type === "color"
-          ? "Color"
+          ? "Main Color"
           : type === "surface"
           ? "Surface"
           : "Top Coat"}
