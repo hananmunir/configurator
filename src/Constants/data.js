@@ -36,6 +36,7 @@ export const topcoat = [
   "some other",
   "leather",
 ];
+export const parts = ["rim", "frame"];
 export const OptionsSet2 = [
   {
     title: "Rim Material",

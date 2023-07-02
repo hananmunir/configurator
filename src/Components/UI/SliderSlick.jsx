@@ -10,8 +10,8 @@ function SliderSlick({ type }) {
   const [state, setState] = useState(
     type === "color" ? colors : type === "surface" ? surface : topcoat
   );
-  const changeColor = useColorStore((state) => state.changeColor);
-  const selectedColor = useColorStore((state) => state.color);
+  const { changeColor, selectedPart } = useColorStore();
+  const selectedColor = useColorStore((state) => state.colors);
   const handleColorClick = (color) => {
     if (type === "color") changeColor(color);
   };
@@ -27,7 +27,9 @@ function SliderSlick({ type }) {
       <Slider dots={false} slidesToShow={4} slidesToScroll={1} autoplay={false}>
         {state.map((color, index) => (
           <div
-            className={`${color === selectedColor && "slick-slide-selected"}`}
+            className={`${
+              color === selectedColor[selectedPart] && "slick-slide-selected"
+            }`}
           >
             <div
               key={index}
@@ -41,7 +43,7 @@ function SliderSlick({ type }) {
       </Slider>
       <span className='slider-color-title'>
         {type === "color"
-          ? selectedColor
+          ? selectedColor[selectedPart]
           : type === "surface"
           ? "Surface"
           : "Top Coat"}

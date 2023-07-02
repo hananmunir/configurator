@@ -3,7 +3,8 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { Canvas } from "@react-three/fiber";
-import { Model as Felni } from "./Components/Models/Felni.jsx";
+import { Model as Rim } from "./Components/Models/Felni.jsx";
+import { Model as Frame } from "./Components/Models/Bike_frame";
 import {
   Environment,
   Loader,
@@ -13,9 +14,24 @@ import {
 } from "@react-three/drei";
 import Container from "./Components/UI/Container";
 import { useControls } from "leva";
+import useStore from "./Utils/store";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const selectedPart = useStore((state) => state.selectedPart);
+
+  const renderComponent = () => {
+    switch (selectedPart) {
+      case "rim":
+        return <Rim />;
+
+      case "frame":
+        console.log("Now Here");
+        return <Frame />;
+
+      default:
+        return <Rim />;
+    }
+  };
 
   return (
     <>
@@ -25,7 +41,7 @@ function App() {
           <pointLight castShadow position={[10, 10, 10]} />
           <directionalLight position={[0, 10, 0]} intensity={1} />
           <Suspense fallback={null}>
-            <Felni />
+            <PresentationControls>{renderComponent()}</PresentationControls>
             <mesh
               receiveShadow
               position={[0, -2, 0]}
