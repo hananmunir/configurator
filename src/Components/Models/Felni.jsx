@@ -7,6 +7,10 @@ export function Model(props) {
   const { nodes, materials } = useGLTF("/Models/rim-transformed.glb");
   const color = useStore((state) => state.colors["rim"]);
 
+  useEffect(() => {
+    nodes.Body1.geometry.center();
+  }, []);
+
   return (
     <group scale={0.008} {...props} dispose={null} rotation={[0, -0.8, 0]}>
       <mesh

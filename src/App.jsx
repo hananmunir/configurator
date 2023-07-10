@@ -41,7 +41,8 @@ function App() {
           <pointLight castShadow position={[10, 10, 10]} />
           <directionalLight position={[0, 10, 0]} intensity={1} />
           <Suspense fallback={null}>
-            <PresentationControls>{renderComponent()}</PresentationControls>
+            <OrbitControls />
+            {renderComponent()}
             <mesh
               receiveShadow
               position={[0, -2, 0]}
