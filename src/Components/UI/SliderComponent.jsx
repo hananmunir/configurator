@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./SliderComponent.css";
 import useColorStore from "../../Utils/store";
 
 const SliderComponent = ({ data }) => {
   const [currentOption, setCurrentOption] = useState(0);
+  const setSurface = useColorStore((state) => state.setSurface);
   const optionsPerSlide = 1;
 
   const handlePrev = () => {
@@ -17,6 +18,10 @@ const SliderComponent = ({ data }) => {
       prevPage === data.options.length - 1 ? 0 : prevPage + 1
     );
   };
+
+  useEffect(() => {
+    setSurface(data.options[currentOption]);
+  }, [currentOption]);
 
   return (
     <div className='slider-container'>

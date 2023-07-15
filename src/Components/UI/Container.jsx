@@ -31,9 +31,9 @@ export default function Container() {
       </div>
       <div className='container-body'>
         <div className='container-body-left'>
-          <SliderSlick type='color' />
-          <SliderSlick type='surface' />
-          <SliderSlick type='topcoat' />
+          <SliderSlick type='color' slidesToShow={4} />
+          <SliderSlick type='surface' slidesToShow={4} />
+          <SliderSlick type='topcoat' slidesToShow={4} />
         </div>
         <div className='container-body-center'>
           <div className='eye-icon-container'>

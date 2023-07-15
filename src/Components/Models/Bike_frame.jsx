@@ -9,8 +9,11 @@ import useStore from "../../Utils/store";
 
 export function Model(props) {
   const { nodes, materials } = useGLTF("/Models/Bike_frame-transformed.glb");
-  const [frameColor, setFrameColor] = useState("#ff0000");
   const color = useStore((state) => state.colors["frame"]);
+  const surface = useStore((state) => state.surface["frame"]);
+
+  console.log(surface);
+
   useEffect(() => {
     nodes.Split_Line6.geometry.center();
   }, []);

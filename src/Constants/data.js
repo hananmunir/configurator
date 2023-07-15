@@ -22,11 +22,15 @@ export const colors = [
 ];
 
 export const surface = [
-  "crocodile",
-  "Vien",
-  "Hammer",
-  "Fine Structure",
-  "Metallic",
+  "Polished Chrome",
+  "Rusty",
+  "Chipped Paint",
+  "Polished Chrome",
+  "Rusty",
+  "Chipped Paint",
+  "Polished Chrome",
+  "Rusty",
+  "Chipped Paint",
 ];
 export const topcoat = [
   "Dawn Mist",
@@ -51,7 +55,7 @@ export const OptionsSet2 = [
   {
     title: "Current Surface",
     type: "surface",
-    options: ["Chrome Plated", "Rusty", "Old paint", "New Paint"],
+    options: surface,
   },
   {
     title: "Urgency",

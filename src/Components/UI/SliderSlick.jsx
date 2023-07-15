@@ -6,7 +6,7 @@ import "./SliderSlick.css";
 import { colors, surface, topcoat } from "../../Constants/data";
 import useColorStore from "../../Utils/store";
 
-function SliderSlick({ type }) {
+function SliderSlick({ type, slidesToShow }) {
   const [state, setState] = useState(
     type === "color" ? colors : type === "surface" ? surface : topcoat
   );
@@ -24,7 +24,12 @@ function SliderSlick({ type }) {
           ? "Surface"
           : "Top Coat"}
       </span>
-      <Slider dots={false} slidesToShow={4} slidesToScroll={1} autoplay={false}>
+      <Slider
+        dots={false}
+        slidesToShow={slidesToShow}
+        slidesToScroll={1}
+        autoplay={false}
+      >
         {state.map((color, index) => (
           <div
             className={`${
