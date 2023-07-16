@@ -20,7 +20,7 @@ const SliderComponent = ({ data }) => {
   };
 
   useEffect(() => {
-    setSurface(data.options[currentOption]);
+    if (data.type === "surface") setSurface(data.options[currentOption]);
   }, [currentOption]);
 
   return (
