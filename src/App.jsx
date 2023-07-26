@@ -19,28 +19,53 @@ import useStore from "./Utils/store";
 import { TextureLoader } from "three";
 import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import * as THREE from "three";
 
-// to make cube with a material on it 
+// to make cube with a material on it
 const Cube = () => {
- 
   const { color } = useControls({
     color: "#ff0000",
   });
-  const { nodes, materials } = useGLTF("/Models/rim-transformed.glb");
-  const texture = useLoader(TextureLoader, '/Surfaces/Rusty/Metalness.png');
+  const gltf = useGLTF("/Models/Bike_frame.glb");
+  console.log(gltf.scene.children[0]);
+  const texture = useLoader(TextureLoader, "/Surfaces/Rusty/Albedo.png");
+
+  const mesh = gltf.scene.children[0];
+
+  if (mesh) {
+    // Apply PBR texture
+    mesh.material = new THREE.MeshStandardMaterial({
+      map: texture, // Your texture
+      color: 0xff00ff, // Base color
+      metalness: 0.5,
+      roughness: 0.5,
+      envMapIntensity: 1,
+      // Other material properties...
+    });
+
+    // Update mesh
+    mesh.material.needsUpdate = true;
+
+    //update uv
+    mesh.geometry.uvsNeedUpdate = true;
+    
+  }
   return (
     <group>
-    
-    <mesh geometry={nodes.Body1.geometry} scale={[0.005,0.005,0.005]} position={[-3,0,0]}>
-      {/* <boxBufferGeometry args={[2, 2, 2]}/> */}
-      {/* <primitive object={model.scene} scale={[.09,.09,.09]} /> */}
-      <meshPhysicalMaterial color={color} map={texture} attach='material'/>
-    </mesh>
-    <mesh position={[3,0,0]}>
-      <boxBufferGeometry args={[2, 2, 2]}/>
-      {/* <primitive object={model.scene} scale={[.09,.09,.09]} /> */}
-      <meshPhysicalMaterial color={color} map={texture}/>
-    </mesh>
+      {/* <mesh
+        geometry={nodes.Split_Line6.geometry}
+        scale={[0.08, 0.08, 0.08]}
+        position={[-1, 0, 0]}
+      >
+        <meshPhysicalMaterial color={color} map={texture} />
+      </mesh> */}
+
+      <primitive object={gltf.scene} scale={[0.08, 0.08, 0.08]} />
+      <mesh position={[3, 0, 0]}>
+        <boxBufferGeometry args={[2, 2, 2]} />
+        {/* <primitive object={model.scene} scale={[.09,.09,.09]} /> */}
+        <meshPhysicalMaterial color={color} map={texture} />
+      </mesh>
     </group>
   );
 };
