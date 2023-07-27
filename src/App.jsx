@@ -2,7 +2,7 @@ import { Suspense, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { Canvas } from "@react-three/fiber";
+import { Canvas, extend } from "@react-three/fiber";
 import { Model as Rim } from "./Components/Models/Felni.jsx";
 import { Model as Frame } from "./Components/Models/Bike_frame";
 import {
@@ -12,55 +12,102 @@ import {
   PresentationControls,
   MeshReflectorMaterial,
   useGLTF,
+  shaderMaterial,
 } from "@react-three/drei";
 import Container from "./Components/UI/Container";
 import { useControls } from "leva";
 import useStore from "./Utils/store";
 import { TextureLoader } from "three";
-import { useLoader } from "@react-three/fiber";
+import { useLoader, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
+import albedo from "./assets/Albedo.png";
+
+const ColorShiftMaterial = shaderMaterial(
+  {
+    glowColor: new THREE.Color(0xe6620f),
+    globTexture: null,
+  },
+  // vertex shader
+  /*glsl*/ `
+     varying vec3 vNormal;
+      varying vec2 vertexUV;
+      void main()
+      {
+        vertexUV = uv;
+          vNormal = normalize( normalMatrix * normal );
+          gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+      }`,
+
+  // fragment shader
+  /*glsl*/ `
+      varying vec3 vNormal;
+      uniform sampler2D globTexture;
+      varying vec2 vertexUV;
+      uniform vec3 glowColor;
+      void main()
+      {
+      	float intensity = pow( 1.9 - dot( vNormal, vec3( 0, 0.0, 1.0) ), 1.0);
+        vec3 atmosphereColor = glowColor * intensity;
+          gl_FragColor = vec4(atmosphereColor + texture2D(globTexture, vertexUV).xyz,1.0)  ;
+      }
+  `
+);
+
+// declaratively
+extend({ ColorShiftMaterial });
 
 // to make cube with a material on it
 const Cube = () => {
   const { color } = useControls({
     color: "#ff0000",
   });
-  const gltf = useGLTF("/Models/Bike_frame.glb");
-  console.log(gltf.scene.children[0]);
-  const texture = useLoader(TextureLoader, "/Surfaces/Rusty/Albedo.png");
+  const { gl } = useThree();
+  const { nodes, materials, scene } = useGLTF("/Models/old_cart_wheel.glb");
+  const texture = useLoader(
+    TextureLoader,
+    // "https://threejs.org/examples/textures/uv_grid_opengl.jpg"
+    "/Surfaces/Rusty/Albedo.png"
+  );
+  // texture.wrapS = THREE.RepeatWrapping;
+  // texture.wrapT = THREE.RepeatWrapping;
 
-  const mesh = gltf.scene.children[0];
+  //texture.anisotropy = gl.capabilities.getMaxAnisotropy();
+  // texture.minFilter = THREE.LinearMipMapLinearFilter;
+  // texture.generateMipmaps = true;
+  //texture.transformUv = (uv) => new THREE.Vector2(uv.x, uv.y);
+  // texture.flipY = false;
+  // texture.mapping = THREE.UVMapping;
 
-  if (mesh) {
-    // Apply PBR texture
-    mesh.material = new THREE.MeshStandardMaterial({
-      map: texture, // Your texture
-      color: 0xff00ff, // Base color
-      metalness: 0.5,
-      roughness: 0.5,
-      envMapIntensity: 1,
-      // Other material properties...
-    });
+  scene.traverse(function (child) {
+    //get the meshes
+    if (child.isMesh) {
+      console.log("Here");
+      // only replace texture if a texture map exist
+      console.log(texture);
 
-    // Update mesh
-    mesh.material.needsUpdate = true;
+      //replace the map with another THREE texture
+      child.material.color.set("#414def");
+      child.material.map = texture;
+      //  child.material.map.repeat.set(1, 1);
+      //update
+      child.material.map.needsUpdate = true;
+      child.geometry.uvsNeedUpdate = true;
+    }
+  });
 
-    //update uv
-    mesh.geometry.uvsNeedUpdate = true;
-    
-  }
   return (
     <group>
-      {/* <mesh
-        geometry={nodes.Split_Line6.geometry}
-        scale={[0.08, 0.08, 0.08]}
-        position={[-1, 0, 0]}
-      >
-        <meshPhysicalMaterial color={color} map={texture} />
-      </mesh> */}
+      {/* // geometry={nodes.Body1.geometry}
+      // scale={[0.005, 0.005, 0.005]}
+      // position={[-3, 0, 0]}
+      // material={material}
+      // material-color={"#ff0000"}
+      // material-roughness={1} */}
+      {/* <boxBufferGeometry args={[2, 2, 2]}/> */}
+      <primitive object={scene} position={[-2, 0, 0]} />
 
-      <primitive object={gltf.scene} scale={[0.08, 0.08, 0.08]} />
+      {/* <colorShiftMaterial color='#ff00ff' time={1} /> */}
       <mesh position={[3, 0, 0]}>
         <boxBufferGeometry args={[2, 2, 2]} />
         {/* <primitive object={model.scene} scale={[.09,.09,.09]} /> */}
