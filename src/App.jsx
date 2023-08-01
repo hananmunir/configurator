@@ -20,13 +20,13 @@ import Container from "./Components/UI/Container";
 import { useControls } from "leva";
 import useStore from "./Utils/store";
 import { TextureLoader } from "three";
-import { useLoader } from "@react-three/fiber";
+import { useLoader, useThree } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 
 
+// to make cube with a material on it 
 const Cube = () => {
- 
   const { color } = useControls({
     color: "#ff0000",
   });
@@ -36,7 +36,7 @@ const Cube = () => {
     color: color,
     map: texture,
   });
- 
+
   return (
     <group>
     <mesh>
