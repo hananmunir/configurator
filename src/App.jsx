@@ -3,8 +3,10 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 import { Canvas, extend } from "@react-three/fiber";
-import { Model as Rim } from "./Components/Models/Felni.jsx";
-import { Model as Frame } from "./Components/Models/Bike_frame";
+// import { Model as Rim } from "./Components/Models/Felni.jsx";
+import { Model as Rim } from "./Components/Models/Carrim.jsx";
+import { Model as Frame } from "./Components/Models/Old_bike";
+// import { Model as Frame } from "./Components/Models/Bike_frame";
 import {
   Environment,
   Loader,
@@ -22,42 +24,13 @@ import { useLoader } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
 import * as THREE from "three";
 
-const CustomShaderMaterial = new THREE.ShaderMaterial({
-  // Uniforms: Variables that can be passed to the shader
-  uniforms : {
-    uTexture: { value: null }, // The texture to be applied
-  },
 
-  // Vertex shader
-  vertexShader: `
-  varying vec2 vUv;
-  void main() {
-    vUv = uv;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-  }
-  `,
-
-  // Fragment shader
-  fragmentShader: `
-  uniform sampler2D uTexture;
-    varying vec2 vUv;
-    void main() {
-      vec4 texColor = texture2D(uTexture, vUv);
-      // Add some red color to the texture
-      gl_FragColor = vec4(texColor.r, 0.0, 0.0, 1.0);
-    }
-  `,
-  side: THREE.FrontSide,
-});
-
-
-// to make cube with a material on it 
 const Cube = () => {
  
   const { color } = useControls({
     color: "#ff0000",
   });
-  const { nodes, material } = useGLTF("/Models/rim-transformed.glb");
+  const model = useGLTF("/Models/carrim-transformed.glb");
   const texture = useLoader(TextureLoader, '/Surfaces/Rusty/Metalness.png');
   const physicalMaterial = new THREE.MeshStandardMaterial({
     color: color,
@@ -66,13 +39,17 @@ const Cube = () => {
  
   return (
     <group>
-    
-    <mesh geometry={nodes.Body1.geometry} material={CustomShaderMaterial} scale={0.008} position={[-3,0,0]}>
-      {/* <CustomShaderMaterial uTexture={texture} /> */}
-      {/* <boxBufferGeometry args={[2, 2, 2]}/> */}
-      {/* <primitive object={model.scene} scale={[.09,.09,.09]} /> */}
-      {/* <meshPhysicalMaterial color={color} map={customMaterial} attach='material'/> */}
+    <mesh>
+    <primitive object={model.scene} scale={4}>
+      <meshPhysicalMaterial color={color} map={texture} attach='material'/>
+    </primitive>
     </mesh>
+    {/* <mesh geometry={nodes.Object_8.geometry} scale={4} position={[-3,0,0]}>
+      <CustomShaderMaterial uTexture={texture} />
+      <boxBufferGeometry args={[2, 2, 2]}/>
+      <primitive object={model.scene} scale={[.09,.09,.09]} />
+      <meshPhysicalMaterial color={color} map={texture} attach='material'/>
+    </mesh> */}
     <mesh position={[3,0,0]}>
       <boxBufferGeometry args={[2, 2, 2]}/>
       {/* <primitive object={model.scene} scale={[.09,.09,.09]} /> */}
@@ -88,7 +65,7 @@ function App() {
   const renderComponent = () => {
     switch (selectedPart) {
       case "rim":
-        return <Cube />;
+        return <Rim />;
 
       case "frame":
         console.log("Now Here");
